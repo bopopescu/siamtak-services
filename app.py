@@ -12,7 +12,7 @@ import pymysql
 app = Flask(__name__)
 api = Api(app)
 app.secret_key = 'IDMAX'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost:3306/wine999'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://siamtak_usr:Saim@22333@27.254.59.108:3306/siamtak_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
 app.config['JWT_BLACKLIST_ENABLED'] = True
@@ -35,14 +35,10 @@ class Item(Resource):
         required=True,
         help="This field cannot be left blank!"
     )
-
-#
-# api.add_resource(BannerList, '/item/<string:name>')
+ 
 api.add_resource(BannerList, '/banners')
 api.add_resource(ProductList, '/product-lists')
 api.add_resource(ProductHomeList, '/product-home-lists')
-
-#api.add_resource(BannerList, '/banners')
 
 if __name__ == '__main__':
     from db import db
