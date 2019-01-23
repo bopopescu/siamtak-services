@@ -47,5 +47,5 @@ if __name__ == '__main__':
     db = SQLAlchemy()
 
     db.init_app(app)
-    app.run(debug=True)  # important to mention debug=True
+    app.run()  # important to mention debug=True
 
