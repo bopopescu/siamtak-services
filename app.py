@@ -1,29 +1,28 @@
 from flask import Flask, jsonify
-from flask_restful import Api
-
-from flask_jwt import JWT, jwt_required, current_identity
-
-from db import connection
-
-# from model.amphur import amphurList
-
 app = Flask(__name__)
-api = Api(app)
+#app.run(debug=True)
+stores = [{
+    'name': 'My Store',
+    'items': [{'name':'my item', 'price': 15.99 }]
+}]
 
-@app.route("/")
+
+@app.route('/')
+def index():
+    jsinData = {
+                'ddddd' : '1',
+                'ffffff' : '2',
+                }
+    return jsonify(jsinData)
+
+@app.route('/hello')
 def hello():
-    return "Hello World!"
+    return jsonify(stores)
 
-@app.route('/amphur')
-def home():
-     with connection.cursor() as cursor:
-     cursor.execute("SELECT * FROM tbl_amphur")
-     rv = cursor.fetchall()
-     return jsonify(rv)
+@app.route('/post/<int:post_id>')
+def show_post(post_id):
+    # show the post with the given id, the id is an integer
+    return 'Post %d' % post_id
 
-# api.add_resource(model.amphurList, '/amphurs')
-
-
-if __name__ == '__main__':
-
-    app.run(debug=True, port=5000)  # important to mention debug=True
+if __name__ == '__main__': 
+    app.run(debug=True)  # important to mention debug=True
