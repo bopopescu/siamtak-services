@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from flask_restful import Resource, reqparse
-from flask_jwt_extended import jwt_required
+#from flask_jwt_extended import jwt_required
 from model.model_product import TblProduct
 from model.model_product_gallery import TblProductGallery
 import datetime
@@ -8,7 +8,7 @@ import json
 from config import urlEndPoint
 
 class Product(Resource):
-    @jwt_required
+    #@jwt_required
     def get(self, pk):
         try:
             data = TblProduct.read(pk)
