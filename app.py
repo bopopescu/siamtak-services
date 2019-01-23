@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api, reqparse
 from flask_jwt import JWT, jwt_required, current_identity
+from flask_sqlalchemy import SQLAlchemy
 
 from security import authenticate, identity
-from db import db
 from resource.product import Product, ProductList, ProductHomeList
 from resource.banner  import BannerList
 import datetime
@@ -18,6 +18,7 @@ app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta(days=1)
 app.config['JWT_BLACKLIST_ENABLED'] = True
 app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 app.config['JWT_SECRET_KEY'] = 'secret-test'
+db = SQLAlchemy()
 
 jwt = JWT(app, authenticate, identity)
 
@@ -42,7 +43,7 @@ api.add_resource(BannerList, '/banners')
 api.add_resource(ProductList, '/product-lists')
 api.add_resource(ProductHomeList, '/product-home-lists')
 
-if __name__ == '__main__':
-    from db import db
+
+if __name__ == '__main__':  
     db.init_app(app)
     app.run(debug=True)  # important to mention debug=True
